@@ -22,10 +22,10 @@ BoxBorder mainBorder({Color? color, double width = 1}) {
   );
 }
 
-List<BoxShadow> mainBoxShadow({double shadow = 0.5}) {
+List<BoxShadow> mainBoxShadow({double shadow = 0.5, Color? color}) {
   return [
     BoxShadow(
-      color: Colors.black.withOpacity(shadow),
+      color: color ?? Colors.black.withOpacity(shadow),
       blurRadius: 20,
       spreadRadius: 1.0,
     ),

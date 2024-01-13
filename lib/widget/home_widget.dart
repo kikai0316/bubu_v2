@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:bubu_v2/component/button.dart';
+import 'package:bubu_v2/component/component.dart';
 import 'package:bubu_v2/constant/color.dart';
 import 'package:bubu_v2/constant/constant.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ Widget nearbyWarningWidget(
     decoration: BoxDecoration(
       color: blackColor2,
       borderRadius: BorderRadius.circular(30),
+      boxShadow: mainBoxShadow(),
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -66,6 +69,57 @@ Widget nearbyWarningWidget(
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget homeButtomButtonWidget(
+  BuildContext context, {
+  required VoidCallback onTap,
+  required bool isStart,
+}) {
+  final safeAreaHeight = safeHeight(context);
+  final safeAreaWidth = MediaQuery.of(context).size.width;
+  return Padding(
+    padding: xPadding(context),
+    child: Container(
+      alignment: Alignment.topCenter,
+      height: isStart ? safeAreaHeight * 0.13 : safeAreaHeight * 0.16,
+      decoration: BoxDecoration(
+        color: blackColor2,
+        borderRadius: BorderRadius.circular(35),
+        boxShadow: mainBoxShadow(),
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: xPadding(
+              context,
+              xSize: safeAreaWidth * 0.04,
+              bottom: safeAreaWidth * 0.04,
+              top: (safeAreaWidth * 0.04) +
+                  (!isStart ? safeAreaHeight * 0.03 : 0),
+            ),
+            child: mainButton(
+              context,
+              text: isStart ? "周囲のデバイスとの通信を開始" : "停止",
+              textColor: blackColor2,
+              onTap: onTap,
+            ),
+          ),
+          if (!isStart)
+            Align(
+              alignment: const Alignment(0, -1.9),
+              child: imgIcon(
+                file: "radar.gif",
+                size: safeAreaWidth * 0.15,
+                pading: safeAreaWidth * 0.03,
+                boxShadow: mainBoxShadow(color: pinkColor.withOpacity(0.3)),
+                isGradation: true,
+              ),
+            ),
+        ],
+      ),
     ),
   );
 }

@@ -1,12 +1,11 @@
 import 'package:bubu_v2/component/component.dart';
 import 'package:bubu_v2/constant/color.dart';
 import 'package:bubu_v2/constant/constant.dart';
+import 'package:bubu_v2/model/model.dart';
 import 'package:bubu_v2/widget/on_user_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget onMessage(
-  BuildContext context,
-) {
+Widget onMessage(BuildContext context, {required UserType userData}) {
   final safeAreaHeight = safeHeight(context);
   final safeAreaWidth = MediaQuery.of(context).size.width;
   return Padding(
@@ -28,9 +27,7 @@ Widget onMessage(
           children: [
             Padding(
               padding: EdgeInsets.only(right: safeAreaWidth * 0.03),
-              child: onUser(
-                size: safeAreaHeight * 0.07,
-              ),
+              child: onUser(size: safeAreaHeight * 0.07, userData: userData),
             ),
             Expanded(
               child: Container(

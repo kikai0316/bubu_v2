@@ -18,7 +18,6 @@ Widget line(
 Widget circleImageWidget({
   required String? image,
   required double size,
-  BoxBorder? border,
   double? radius,
   Widget? child,
   List<BoxShadow>? boxShadow,
@@ -45,7 +44,14 @@ Widget circleImageWidget({
   );
 }
 
-Widget imgIcon({required String file, required double size, double? pading}) {
+Widget imgIcon({
+  required String file,
+  required double size,
+  double? pading,
+  Color color = blackColor2,
+  bool? isGradation,
+  List<BoxShadow>? boxShadow,
+}) {
   return Container(
     alignment: Alignment.center,
     height: size,
@@ -54,8 +60,10 @@ Widget imgIcon({required String file, required double size, double? pading}) {
       pading ?? 0,
     ),
     decoration: BoxDecoration(
-      color: pading != null ? blackColor2 : null,
+      color: color,
+      gradient: isGradation == true ? mainGradation() : null,
       shape: BoxShape.circle,
+      boxShadow: boxShadow,
     ),
     child: Container(
       decoration: BoxDecoration(
@@ -68,20 +76,41 @@ Widget imgIcon({required String file, required double size, double? pading}) {
   );
 }
 
+Widget circleWidget({
+  required double size,
+  required Color color,
+  Widget? child,
+  BoxBorder? border,
+  List<BoxShadow>? boxShadow,
+}) {
+  return Container(
+    alignment: Alignment.center,
+    height: size,
+    width: size,
+    decoration: BoxDecoration(
+      color: color,
+      border: border,
+      shape: BoxShape.circle,
+    ),
+    child: child,
+  );
+}
+
 Widget nText(
   String text, {
   required double fontSize,
   Color color = Colors.white,
-  double bold = 700,
+  double bold = 600,
   double height = 1,
   int? maxLiune,
   TextAlign textAlign = TextAlign.center,
   bool? isGradation,
+  bool isOverflow = true,
 }) {
   final textWidget = Text(
     text,
     textAlign: textAlign,
-    overflow: TextOverflow.ellipsis,
+    overflow: isOverflow ? TextOverflow.ellipsis : null,
     maxLines: maxLiune,
     style: TextStyle(
       height: height,
@@ -89,16 +118,13 @@ Widget nText(
       fontFamily: "Normal",
       fontVariations: [FontVariation("wght", bold)],
       color: color,
-      shadows: mainBoxShadow(),
       fontSize: fontSize,
     ),
   );
   return isGradation == true
       ? ShaderMask(
           child: textWidget,
-          shaderCallback: (Rect rect) {
-            return mainGradation().createShader(rect);
-          },
+          shaderCallback: (Rect rect) => mainGradation().createShader(rect),
         )
       : textWidget;
 }
