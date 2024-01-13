@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "701972508105",
+    "project_id": "bubu-v2",
+    "storage_bucket": "bubu-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701972508105:android:ca910b5e945252c92f0c18",
+        "android_client_info": {
+          "package_name": "com.example.bubu_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf1afWbnZpEh9xYOJOxqmlxnoxnD89Z4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
