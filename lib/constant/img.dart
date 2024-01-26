@@ -6,3 +6,17 @@ DecorationImage notImg() {
     fit: BoxFit.cover,
   );
 }
+
+DecorationImage assetImg(String file) {
+  return DecorationImage(
+    image: AssetImage("assets/img/$file"),
+    fit: BoxFit.cover,
+  );
+}
+
+DecorationImage networkImg(String url) {
+  return DecorationImage(
+    image: NetworkImage(url),
+    fit: BoxFit.cover,
+  );
+}

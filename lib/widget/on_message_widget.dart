@@ -1,7 +1,10 @@
-import 'package:bubu_v2/component/component.dart';
+import 'package:bubu_v2/component/button.dart';
+import 'package:bubu_v2/component/text.dart';
 import 'package:bubu_v2/constant/color.dart';
 import 'package:bubu_v2/constant/constant.dart';
 import 'package:bubu_v2/model/model.dart';
+import 'package:bubu_v2/utility/screen_transition_utility.dart';
+import 'package:bubu_v2/view/message/message_page.dart';
 import 'package:bubu_v2/widget/on_user_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +16,13 @@ Widget onMessage(BuildContext context, {required UserType userData}) {
       context,
       bottom: safeAreaHeight * 0.015,
     ),
-    child: GestureDetector(
+    child: CustomAnimatedOpacityButton(
+      onTap: () => ScreenTransition(
+        context,
+        MessagePage(
+          userData: userData,
+        ),
+      ).normal(),
       child: Container(
         padding: xPadding(
           context,

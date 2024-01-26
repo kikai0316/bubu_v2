@@ -21,7 +21,7 @@ Future<File?> cropProfileImg(File img) async {
         title: 'プロフィール画像',
         rectX: 50,
         rectY: 50,
-        rectWidth: 5000,
+        rectWidth: 2813,
         rectHeight: 5000,
         aspectRatioLockEnabled: true,
         aspectRatioPickerButtonHidden: true,

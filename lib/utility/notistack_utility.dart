@@ -1,4 +1,4 @@
-import 'package:bubu_v2/component/component.dart';
+import 'package:bubu_v2/component/text.dart';
 import 'package:bubu_v2/constant/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

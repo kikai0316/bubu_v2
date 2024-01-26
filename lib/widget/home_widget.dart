@@ -1,9 +1,14 @@
 import 'dart:ui';
 
+import 'package:bubu_v2/bespoke_profile_swiper/profile_swiper_page.dart';
 import 'package:bubu_v2/component/button.dart';
 import 'package:bubu_v2/component/component.dart';
 import 'package:bubu_v2/constant/color.dart';
 import 'package:bubu_v2/constant/constant.dart';
+import 'package:bubu_v2/model/model.dart';
+import 'package:bubu_v2/utility/screen_transition_utility.dart';
+import 'package:bubu_v2/utility/utility.dart';
+import 'package:bubu_v2/widget/on_user_widget.dart';
 import 'package:flutter/material.dart';
 
 Widget nearbyWarningWidget(
@@ -58,13 +63,8 @@ Widget nearbyWarningWidget(
               borderRadius: BorderRadius.circular(10),
               boxShadow: mainBoxShadow(),
             ),
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/img/setting.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            child: imgWidget(
+              assetFile: "setting.png",
             ),
           ),
         ),
@@ -103,23 +103,79 @@ Widget homeButtomButtonWidget(
             child: mainButton(
               context,
               text: isStart ? "周囲のデバイスとの通信を開始" : "停止",
-              textColor: blackColor2,
               onTap: onTap,
             ),
           ),
           if (!isStart)
             Align(
               alignment: const Alignment(0, -1.9),
-              child: imgIcon(
-                file: "radar.gif",
+              child: circleWidget(
                 size: safeAreaWidth * 0.15,
-                pading: safeAreaWidth * 0.03,
                 boxShadow: mainBoxShadow(color: pinkColor.withOpacity(0.3)),
                 isGradation: true,
+                padingSize: safeAreaWidth * 0.03,
+                child: imgWidget(
+                  assetFile: "radar.gif",
+                ),
               ),
             ),
         ],
       ),
+    ),
+  );
+}
+
+Widget nearWidget(
+  BuildContext context, {
+  required List<UserType> nearUsers,
+  required UserType userProfile,
+  required VoidCallback onEditProfileImg,
+  required VoidCallback onEditUserProfile,
+  required VoidCallback onEditComment,
+}) {
+  final safeAreaWidth = MediaQuery.of(context).size.width;
+  final padingWidget = SizedBox(
+    width: safeAreaWidth * 0.01,
+  );
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      children: [
+        padingWidget,
+        for (int i = 0; i < nearUsers.length + 1; i++)
+          onUserWithNear(
+            context,
+            onEditUserProfile: i == 0
+                ? () => showBottomMenu(
+                      context,
+                      itemList: List.generate(
+                        3,
+                        (i) => BottomMenuItemType(
+                          text: [
+                            "プロフィール画像を変更",
+                            "一言を編集",
+                            "基本情報を編集",
+                          ][i],
+                          onTap: [
+                            onEditProfileImg,
+                            onEditComment,
+                            onEditUserProfile,
+                          ][i],
+                        ),
+                      ),
+                    )
+                : null,
+            onTap: () => ScreenTransition(
+              context,
+              ProfileSwiperPage(
+                allUsers: i == 0 ? [userProfile] : nearUsers,
+                targetIndex: i == 0 ? 0 : i - 1,
+              ),
+            ).hero(),
+            userData: i == 0 ? userProfile : nearUsers[i - 1],
+          ),
+        padingWidget,
+      ],
     ),
   );
 }

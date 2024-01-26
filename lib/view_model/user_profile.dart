@@ -12,15 +12,20 @@ class UserProfileNotifier extends _$UserProfileNotifier {
     return profileData;
   }
 
-  Future<void> profileImgUpData(String downloadURL) async {
+  Future<void> profileUpData({
+    String? name,
+    String? profileImg,
+    String? comment,
+    DateTime? birthday,
+  }) async {
     state = await AsyncValue.guard(() async {
       final userProfile = state.value!;
       return UserType(
         id: userProfile.id,
-        profileImg: downloadURL,
-        name: userProfile.name,
-        comment: userProfile.comment,
-        birthday: userProfile.birthday,
+        profileImg: profileImg ?? userProfile.profileImg,
+        name: name ?? userProfile.name,
+        comment: comment ?? userProfile.comment,
+        birthday: birthday ?? userProfile.birthday,
       );
     });
   }

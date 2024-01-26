@@ -1,8 +1,9 @@
 import 'package:bubu_v2/component/appbar.dart';
-import 'package:bubu_v2/component/component.dart';
 import 'package:bubu_v2/component/loading.dart';
+import 'package:bubu_v2/component/text.dart';
 import 'package:bubu_v2/constant/color.dart';
 import 'package:bubu_v2/model/model.dart';
+import 'package:bubu_v2/utility/sort_filter_utility.dart';
 import 'package:bubu_v2/view/home/home_main_page.dart';
 import 'package:bubu_v2/view/home/home_start_page.dart';
 import 'package:bubu_v2/view_model/all_users.dart';
@@ -52,8 +53,7 @@ class InitialPage extends HookConsumerWidget {
                 )
               : HomeMainPage(
                   userProfile: userProfile,
-                  allUsers: allUsers,
-                  deviceList: deviceList,
+                  nearUsers: filterAllUsers(deviceList, allUsers),
                   isLoading: isLoading,
                   upLoadTaskPercentage: upLoadTaskPercentage,
                 ),

@@ -1,4 +1,5 @@
 import 'package:bubu_v2/component/component.dart';
+import 'package:bubu_v2/component/text.dart';
 import 'package:bubu_v2/constant/color.dart';
 import 'package:bubu_v2/model/model.dart';
 import 'package:bubu_v2/view_model/device_list.dart';
@@ -26,7 +27,10 @@ class HomeStartPage extends HookConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                imgIcon(file: "background2.png", size: safeAreaWidth * 0.35),
+                imgWidget(
+                  assetFile: "background2.png",
+                  size: safeAreaWidth * 0.35,
+                ), //あと
                 nText(
                   "半径20m以内の\nユーザーと繋がるアプリ",
                   height: 0,

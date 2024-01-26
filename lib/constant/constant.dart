@@ -61,3 +61,17 @@ EdgeInsetsGeometry yPadding(
     bottom: ySize ?? safeAreaHeight * 0.02,
   );
 }
+
+EdgeInsetsGeometry customPadding({
+  double top = 0,
+  double bottom = 0,
+  double left = 0,
+  double right = 0,
+}) {
+  return EdgeInsets.only(
+    left: left,
+    right: right,
+    top: top,
+    bottom: bottom,
+  );
+}

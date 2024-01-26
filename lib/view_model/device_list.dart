@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bubu_v2/view_model/all_users.dart';
 import 'package:flutter_nearby_connections/flutter_nearby_connections.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'device_list.g.dart';
@@ -47,9 +48,16 @@ class DeviceListNotifier extends _$DeviceListNotifier {
   }
 
   Future<void> callbackNearbyService() async {
+    final allUsersNotifier = ref.read(allUsersNotifierProvider.notifier);
     stateChangedSubscription = nearbyService?.stateChangedSubscription(
       callback: (devicesList) async {
         state = await AsyncValue.guard(() async {
+          final deviceIds = devicesList.map((e) => e.deviceId).toList();
+          for (final device in devicesList) {
+            if (!deviceIds.contains(device.deviceId)) {
+              allUsersNotifier.addData(device.deviceId);
+            }
+          }
           return devicesList.map((e) => e.deviceId).toList();
         });
       },

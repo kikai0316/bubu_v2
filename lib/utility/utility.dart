@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bubu_v2/component/component.dart';
+import 'package:bubu_v2/component/text.dart';
 import 'package:bubu_v2/constant/message.dart';
 import 'package:bubu_v2/model/model.dart';
 import 'package:bubu_v2/utility/crop_img_utility.dart';
@@ -46,7 +46,7 @@ Future<void> showBottomMenu(
         ),
         child: nText(
           "キャンセル",
-          color: Colors.blue,
+          color: Colors.red,
           fontSize: safeAreaWidth / 25,
         ),
       ),
@@ -98,4 +98,21 @@ Future<File?> getMobileImage(
     errorShowDialog(true);
     return null;
   }
+}
+
+void bottomSheet(
+  BuildContext context, {
+  required Widget page,
+  VoidCallback? onThen,
+  VoidCallback? onError,
+}) {
+  showModalBottomSheet<Widget>(
+    isScrollControlled: true,
+    context: context,
+    elevation: 0,
+    backgroundColor: Colors.transparent,
+    builder: (context) => page,
+  )
+      .then((value) => onThen?.call())
+      .onError((error, stackTrace) => onError?.call());
 }
